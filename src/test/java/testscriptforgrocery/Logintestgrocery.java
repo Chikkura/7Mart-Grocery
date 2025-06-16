@@ -12,7 +12,8 @@ import pageclassforgrocery.Loginpageclass;
 @Test
 public class Logintestgrocery extends BaseClass {
 	Homepage home;
-	@Test
+	
+	@Test(groups= {"Regression"})
 	public void verifyloginforgrocery() {
 		Loginpageclass login = new Loginpageclass(driver);
 		login.loginpage("admin", "admin");

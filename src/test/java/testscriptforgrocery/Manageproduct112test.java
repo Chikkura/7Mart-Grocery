@@ -19,7 +19,8 @@ public class Manageproduct112test extends BaseClass{
 	Manageproduct112 manage;
 	
 	
-  @Test
+	@Test(retryAnalyzer = retry.Retry.class)
+  
   public void mange112() throws IOException {
 	  Loginpageclass login =new Loginpageclass(driver);
 	  
