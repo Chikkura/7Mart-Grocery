@@ -11,67 +11,59 @@ import utilities.Waitutility;
 
 public class Adminuserandcreationofadminpage {
 	public WebDriver driver;
-	Waitutility waitUtility =new Waitutility();
+	Waitutility waitUtility = new Waitutility();
 	Pageutilities pageUtility = new Pageutilities();
-	public Adminuserandcreationofadminpage(WebDriver driver)
-	{
-		this.driver =driver;
+
+	public Adminuserandcreationofadminpage(WebDriver driver) {
+		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
-	@FindBy(xpath="//input[@placeholder='Username']")
+	@FindBy(xpath = "//input[@placeholder='Username']")
 	WebElement usernamefield;
-	@FindBy(xpath="//input[@placeholder='Password']")
+	@FindBy(xpath = "//input[@placeholder='Password']")
 	WebElement passwordfield;
-	@FindBy(xpath="//button[@class='btn btn-dark btn-block']")
+	@FindBy(xpath = "//button[@class='btn btn-dark btn-block']")
 	WebElement signinbutton;
 //@FindBy(xpath="//a[@href='https://groceryapp.uniqassosiates.com/admin/list-admin' and @class='small-box-footer']")
 //WebElement clickoninfo;(this is cut and paste to homepage
-@FindBy(xpath="//a[@class='btn btn-rounded btn-danger']")
-WebElement clickonnew;
-@FindBy(xpath="//input[@id='username']")
-WebElement enterusername;
-@FindBy(xpath="//input[@id='password']")
-WebElement enterpassword;
-@FindBy(xpath="//select[@id='user_type']")
-WebElement userType;
-@FindBy(xpath="//button[@name='Create']")
-WebElement saveButton;
-@FindBy(xpath="//div[@class='alert alert-danger alert-dismissible']")
-WebElement alert;
+	@FindBy(xpath = "//a[@class='btn btn-rounded btn-danger']")
+	WebElement clickonnew;
+	@FindBy(xpath = "//input[@id='username']")
+	WebElement enterusername;
+	@FindBy(xpath = "//input[@id='password']")
+	WebElement enterpassword;
+	@FindBy(xpath = "//select[@id='user_type']")
+	WebElement userType;
+	@FindBy(xpath = "//button[@name='Create']")
+	WebElement saveButton;
+	@FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
+	WebElement alert;
 
+	public Adminuserandcreationofadminpage loginpage(String username, String password) {
+		usernamefield.sendKeys(username);
+		passwordfield.sendKeys(password);
+		waitUtility.waitforelmenttoClick(driver, signinbutton);
+		signinbutton.click();
+		return this;
+	}
 
+	public Adminuserandcreationofadminpage clickonnewuser() {
 
-public Adminuserandcreationofadminpage loginpage(String username, String password)
-{
-	usernamefield.sendKeys(username);
-	passwordfield.sendKeys(password);
-	waitUtility.waitforelmenttoClick(driver, signinbutton);
-	signinbutton.click();
-	return this;
-}
-  /*public Adminuserandcreationofadminpage  clickonuser() {
-	  clickoninfo.click();
-	  clickonnew.click();
-	  return this;
-  }*/ //CUT AND PASTE TO HOMEPAGE
-  
-  public Adminuserandcreationofadminpage  clickonnewuser() {
-	 
-	  clickonnew.click();
-	  return this;
-  }
- public Adminuserandcreationofadminpage newUserCreation(String user,String pasword, String newUserType) {
-	 enterusername.sendKeys(user);
-	 enterpassword.sendKeys(pasword);
-	 pageUtility.selectByvisibleText(userType, newUserType);
-     waitUtility.waitforelmenttoClick(driver, saveButton);
-     saveButton.click();
-     return this;
- }
+		clickonnew.click();
+		return this;
+	}
 
-public boolean adminisDisplayed()
-{
-return alert.isDisplayed();
-}
+	public Adminuserandcreationofadminpage newUserCreation(String user, String pasword, String newUserType) {
+		enterusername.sendKeys(user);
+		enterpassword.sendKeys(pasword);
+		pageUtility.selectByvisibleText(userType, newUserType);
+		waitUtility.waitforelmenttoClick(driver, saveButton);
+		saveButton.click();
+		return this;
+	}
+
+	public boolean adminisDisplayed() {
+		return alert.isDisplayed();
+	}
 }

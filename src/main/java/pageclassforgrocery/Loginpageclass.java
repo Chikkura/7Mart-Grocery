@@ -28,8 +28,7 @@ public Loginpageclass loginpage(String username, String password)
 {
 	usernamefield.sendKeys(username);//check the redirection page
 	passwordfield.sendKeys(password);
-	//signinbutton.click();
-	return this;
+		return this;
 }
 
 public Homepage clickSignin()//check the redirection 

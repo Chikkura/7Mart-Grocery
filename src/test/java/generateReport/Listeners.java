@@ -24,75 +24,71 @@ public class Listeners implements ITestListener {
 	}
 
 	public void onTestSuccess(ITestResult result) {// called when test method passess
-		
-	
-													// 
-	ITestListener.super.onTestSuccess(result);
-													// 
-	extentTest.get().log(Status.PASS, "Test Passed"); 
+
+		//
+		ITestListener.super.onTestSuccess(result);
+		//
+		extentTest.get().log(Status.PASS, "Test Passed");
 	}
 
-public void onTestFailure(ITestResult result) 
+	public void onTestFailure(ITestResult result)
 
-{ // called when test method fails
-    ITestListener.super.onTestFailure(result);
-    extentTest.get().log(Status.FAIL, "Test Failed");
-    extentTest.get().fail(result.getThrowable());
-    WebDriver driver = null;
-    String testMethodName = result.getMethod().getMethodName();
+	{ // called when test method fails
+		ITestListener.super.onTestFailure(result);
+		extentTest.get().log(Status.FAIL, "Test Failed");
+		extentTest.get().fail(result.getThrowable());
+		WebDriver driver = null;
+		String testMethodName = result.getMethod().getMethodName();
 		try {
-			
+
 			driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver")
 					.get(result.getInstance());
-		}		
-		
-		catch (IllegalArgumentException e) 
-		
+		}
+
+		catch (IllegalArgumentException e)
+
 		{
 			e.printStackTrace();
 		}
-		
-		catch (IllegalAccessException e)
-		{
+
+		catch (IllegalAccessException e) {
 			e.printStackTrace();
-		} 
-		
+		}
+
 		catch (NoSuchFieldException e) {
-		
-		e.printStackTrace();
+
+			e.printStackTrace();
+		}
+
+		catch (SecurityException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver")
+					.get(result.getInstance());
+		} catch (Exception e) {
+
+		}
 	}
-	
-catch (SecurityException e) {
-    e.printStackTrace();
-}
 
-try {
-	 driver = (WebDriver) result.getTestClass().getRealClass().getDeclaredField("driver")
-             .get(result.getInstance());
+	public void onTestSkipped(ITestResult result) { // called when test method is skipped
+		ITestListener.super.onTestSkipped(result);
+		extentTest.get().log(Status.SKIP, "Test Skipped");
+		String testMethodName = result.getMethod().getMethodName();
 	}
-	catch(Exception e)
-	{
-		
+
+	public void onTestFailedButWithinSuccessPercentage(ITestResult result) { // called when test method fails within
+		// success percentage
+		ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
 	}
-}
-	
 
-public void onTestSkipped(ITestResult result) { // called when test method is skipped
-    ITestListener.super.onTestSkipped(result);
-    extentTest.get().log(Status.SKIP, "Test Skipped");
-    String testMethodName = result.getMethod().getMethodName();
-}
+	public void onTestFailedWithTimeOut(ITestResult result) {
+		ITestListener.super.onTestFailedWithTimeout(result);
+	}
 
-public void onTestFailedButWithinSuccessPercentage(ITestResult result) { // called when test method fails within
-    // success percentage
-ITestListener.super.onTestFailedButWithinSuccessPercentage(result);
-}
-
-public void onTestFailedWithTimeOut(ITestResult result) {
-    ITestListener.super.onTestFailedWithTimeout(result);
-}
-@Override
-public void onFinish(ITestContext context) {
-    extent.flush(); 
-}
+	@Override
+	public void onFinish(ITestContext context) {
+		extent.flush();
+	}
 }
